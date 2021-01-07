@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,3 +20,9 @@ Route::delete('/books/{book}', 'BooksController@destroy');
 
 Route::post('/authors', 'AuthorsController@store');
 
+Route::post('/checkout/{book}', 'CheckoutBooksController@store')->middleware('auth');
+Route::post('/checkin/{book}', 'CheckinBooksController@store')->middleware('auth');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
