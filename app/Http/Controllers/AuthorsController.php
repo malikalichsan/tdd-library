@@ -9,8 +9,16 @@ class AuthorsController extends Controller
 {
     public function store()
     {
-        Author::create(request()->only([
-            'name', 'dob'
-        ]));
+        $author = Author::create($this->validateRequest());
+
+        return redirect($author->path());
+    }
+
+    protected function validateRequest()
+    {
+        return request()->validate([
+            'name' => 'required',
+            'dob' => 'required',
+        ]);
     }
 }
